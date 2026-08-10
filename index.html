@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudySpace 🌈</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffd6e8, #dbe7ff, #d8fff0);
+    color: #29213d;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    padding: 25px 10px;
+}
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 17px;
+}
+
+.card {
+    background: rgba(255,255,255,0.94);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-bottom: 16px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 15px;
+    margin-top: 7px;
+}
+
+button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #7b61ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    padding: 20px;
+    border-radius: 18px;
+    text-align: center;
+    color: white;
+}
+
+.stat:nth-child(1) {
+    background: #ff6fae;
+}
+
+.stat:nth-child(2) {
+    background: #7b61ff;
+}
+
+.stat:nth-child(3) {
+    background: #20b486;
+}
+
+.stat h3 {
+    font-size: 28px;
+    margin-top: 8px;
+}
+
+.progress-bg {
+    width: 100%;
+    height: 20px;
+    background: #eee;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff6fae, #7b61ff, #20b486);
+    transition: 0.4s;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.task {
+    padding: 14px;
+    background: #f7f5ff;
+    border-radius: 12px;
+    margin: 8px 0;
+}
+
+.task input {
+    width: auto;
+    margin-right: 8px;
+}
+
+.subject {
+    margin-bottom: 18px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.subject-title {
+    padding: 17px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.physics {
+    background: #ff6b6b;
+}
+
+.chemistry {
+    background: #339af0;
+}
+
+.maths {
+    background: #845ef7;
+}
+
+.ip {
+    background: #20c997;
+}
+
+.subject-content {
+    background: #fafafa;
+    padding: 12px;
+}
+
+.chapter {
+    background: white;
+    padding: 12px;
+    margin: 7px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.chapter select {
+    width: 150px;
+    margin: 0;
+    padding: 7px;
+}
+
+.timer {
+    text-align: center;
+}
+
+#timer {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.timer button {
+    margin: 5px;
+}
+
+.goal {
+    display: flex;
+    gap: 10px;
+}
+
+.goal input {
+    flex: 1;
+}
+
+#savedGoal {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .chapter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .chapter select {
+        width: 100%;
+    }
+
+    #timer {
+        font-size: 38px;
+    }
+
+    .goal {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>🌈 StudySpace</h1>
+    <p id="welcome">Your colourful study dashboard 📚</p>
+</header>
+
+<div class="card">
+
+<h2>👤 Create Your Profile</h2>
+
+<div class="profile-grid">
+
+<div>
+<label>Name</label>
+<input id="name" placeholder="Enter your name">
+</div>
+
+<div>
+<label>Class</label>
+<select id="className">
+<option>Class 11</option>
+<option>Class 10</option>
+<option>Class 12</option>
+<option>College</option>
+<option>Other</option>
+</select>
+</div>
+
+<div>
+<label>Study Goal</label>
+<select id="goalType">
+<option>JEE</option>
+<option>Boards</option>
+<option>School</option>
+<option>Other</option>
+</select>
+</div>
+
+</div>
+
+<button onclick="saveProfile()">Save Profile 💾</button>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<p>🔥 Study Streak</p>
+<h3 id="streak">1 day</h3>
+</div>
+
+<div class="stat">
+<p>⏱️ Study Time</p>
+<h3 id="totalTime">0 min</h3>
+</div>
+
+<div class="stat">
+<p>📚 Chapters Done</p>
+<h3 id="chaptersDone">0</h3>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>📊 Today's Progress</h2>
+
+<div class="progress-bg">
+<div class="progress-fill" id="progress"></div>
+</div>
+
+<div class="progress-text" id="progressText">
+0% completed
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>📝 Today's Tasks</h2>
+
+<div class="task">
+<input type="checkbox" class="taskCheck">
+Physics revision
+</div>
+
+<div class="task">
+<input type="checkbox" class="taskCheck">
+Chemistry NCERT
+</div>
+
+<div class="task">
+<input type="checkbox" class="taskCheck">
+Maths practice
+</div>
+
+<div class="task">
+<input type="checkbox" class="taskCheck">
+PYQs
+</div>
+
+<div class="task">
+<input type="checkbox" class="taskCheck">
+Revision
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>📚 Subjects & Chapters</h2>
+
+<div class="subject">
+
+<div class="subject-title physics">
+⚡ PHYSICS
+</div>
+
+<div class="subject-content">
+
+<div class="chapter">
+<span>Units and Measurements</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Motion in a Straight Line</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Motion in a Plane</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Laws of Motion</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Work, Energy and Power</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>System of Particles and Rotational Motion</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Gravitation</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Mechanical Properties of Solids</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Mechanical Properties of Fluids</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Thermal Properties of Matter</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Thermodynamics</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Kinetic Theory</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Oscillations</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Waves</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+</div>
+</div>
+
+<div class="subject">
+
+<div class="subject-title chemistry">
+🧪 CHEMISTRY
+</div>
+
+<div class="subject-content">
+
+<div class="chapter">
+<span>Some Basic Concepts of Chemistry</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Structure of Atom</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Classification of Elements and Periodicity</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Chemical Bonding and Molecular Structure</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Thermodynamics</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Equilibrium</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Redox Reactions</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Organic Chemistry – Basic Principles</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Hydrocarbons</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+</div>
+</div>
+
+<div class="subject">
+
+<div class="subject-title maths">
+📐 MATHEMATICS
+</div>
+
+<div class="subject-content">
+
+<div class="chapter">
+<span>Sets</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Relations and Functions</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Trigonometric Functions</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Principle of Mathematical Induction</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Complex Numbers and Quadratic Equations</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Linear Inequalities</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Permutations and Combinations</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Binomial Theorem</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Sequences and Series</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Straight Lines</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Conic Sections</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Limits and Derivatives</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Statistics</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Probability</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+</div>
+</div>
+
+<div class="subject">
+
+<div class="subject-title ip">
+💻 INFORMATICS PRACTICES
+</div>
+
+<div class="subject-content">
+
+<div class="chapter">
+<span>Introduction to Python</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Python Data Types</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Data Handling</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+<div class="chapter">
+<span>Database Concepts</span>
+<select class="chapterStatus">
+<option>Not Started</option>
+<option>Learning</option>
+<option>Completed</option>
+<option>Revised</option>
+</select>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="card timer">
+
+<h2>⏱️ Study Timer</h2>
+
+<div id="timer">00:00:00</div>
+
+<button onclick="startTimer()">▶ Start</button>
+<button onclick="stopTimer()">⏸ Pause</button>
+<button onclick="resetTimer()">🔄 Reset</button>
+
+</div>
+
+<div class="card">
+
+<h2>🎯 Today's Goal</h2>
+
+<div class="goal">
+
+<input id="dailyGoal"
+placeholder="Example: Complete Motion in a Plane">
+
+<button onclick="saveGoal()">Save</button>
+
+</div>
+
+<p id="savedGoal"></p>
+
+</div>
+
+</div>
+
+<script>
+
+/* PROFILE */
+
+function saveProfile() {
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const className =
+        document.getElementById("className").value;
+
+    const goal =
+        document.getElementById("goalType").value;
+
+    if (!name) {
+        alert("Please enter your name!");
+        return;
+    }
+
+    localStorage.setItem("studyName", name);
+    localStorage.setItem("studyClass", className);
+    localStorage.setItem("studyGoal", goal);
+
+    showProfile();
+}
+
+function showProfile() {
+
+    const name =
+        localStorage.getItem("studyName");
+
+    const className =
+        localStorage.getItem("studyClass");
+
+    const goal =
+        localStorage.getItem("studyGoal");
+
+    if (name) {
+
+        document.getElementById("name").value = name;
+        document.getElementById("className").value = className;
+        document.getElementById("goalType").value = goal;
+
+        document.getElementById("welcome").innerText =
+            "Welcome, " + name + "! 👋 | " +
+            className + " | Goal: " + goal;
+    }
+}
+
+
+/* TASK PROGRESS */
+
+const tasks =
+    document.querySelectorAll(".taskCheck");
+
+tasks.forEach(function(task, index) {
+
+    const saved =
+        localStorage.getItem("task_" + index);
+
+    if (saved === "true") {
+        task.checked = true;
+    }
+
+    task.addEventListener("change", function() {
+
+        localStorage.setItem(
+            "task_" + index,
+            task.checked
+        );
+
+        updateProgress();
+    });
+});
+
+function updateProgress() {
+
+    let completed = 0;
+
+    tasks.forEach(function(task) {
+
+        if (task.checked) {
+            completed++;
+        }
+
+    });
+
+    const percentage =
+        Math.round((completed / tasks.length) * 100);
+
+    document.getElementById("progress").style.width =
+        percentage + "%";
+
+    document.getElementById("progressText").innerText =
+        percentage + "% completed";
+
+}
+
+
+/* CHAPTERS */
+
+const chapters =
+    document.querySelectorAll(".chapterStatus");
+
+chapters.forEach(function(select, index) {
+
+    const saved =
+        localStorage.getItem("chapter_" + index);
+
+    if (saved) {
+        select.value = saved;
+    }
+
+    select.addEventListener("change", function() {
+
+        localStorage.setItem(
+            "chapter_" + index,
+            select.value
+        );
+
+        updateChapterCount();
+    });
+});
+
+function updateChapterCount() {
+
+    let completed = 0;
+
+    chapters.forEach(function(select) {
+
+        if (
+            select.value === "Completed" ||
+            select.value === "Revised"
+        ) {
+            completed++;
+        }
+
+    });
+
+    document.getElementById("chaptersDone").innerText =
+        completed;
+}
+
+
+/* TIMER */
+
+let seconds = 0;
+let timerInterval = null;
+
+function updateTimer() {
+
+    const hours =
+        Math.floor(seconds / 3600);
+
+    const minutes =
+        Math.floor((seconds % 3600) / 60);
+
+    const secs =
+        seconds % 60;
+
+    document.getElementById("timer").innerText =
+
+        String(hours).padStart(2, "0") + ":" +
+
+        String(minutes).padStart(2, "0") + ":" +
+
+        String(secs).padStart(2, "0");
+
+}
+
+function startTimer() {
+
+    if (timerInterval !== null) {
+        return;
+    }
+
+    timerInterval = setInterval(function() {
+
+        seconds++;
+
+        updateTimer();
+
+    }, 1000);
+
+}
+
+function stopTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+}
+
+function resetTimer() {
+
+    stopTimer();
+
+    seconds = 0;
+
+    updateTimer();
+
+}
+
+
+/* GOAL */
+
+function saveGoal() {
+
+    const goal =
+        document.getElementById("dailyGoal").value.trim();
+
+    if (!goal) {
+        return;
+    }
+
+    localStorage.setItem("dailyStudyGoal", goal);
+
+    document.getElementById("savedGoal").innerText =
+        "🎯 Today's Goal: " + goal;
+}
+
+
+/* LOAD SAVED DATA */
+
+window.addEventListener("load", function() {
+
+    showProfile();
+
+    updateProgress();
+
+    updateChapterCount();
+
+    const savedGoal =
+        localStorage.getItem("dailyStudyGoal");
+
+    if (savedGoal) {
+
+        document.getElementById("dailyGoal").value =
+            savedGoal;
+
+        document.getElementById("savedGoal").innerText =
+            "🎯 Today's Goal: " + savedGoal;
+    }
+
+});
+
+</script>
+
+</body>
+</html>
